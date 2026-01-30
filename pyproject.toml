@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chat-history-analyzer"
+version = "1.0.0"
+description = "A tool to analyze chat history files"
+authors = [{name = "Your Name", email = "your.email@example.com"}]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "rich",
+    "flask",
+    "werkzeug"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.scripts]
+chat-analyzer = "chat_analyzer.cli:main"
+chat-analyzer-web = "chat_analyzer.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

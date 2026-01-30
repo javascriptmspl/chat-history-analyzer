@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💬 Chat History Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>💬 Chat History Analyzer</h1>
+                <p class="subtitle">Unlock the hidden stories in your chat logs</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section" id="uploadSection">
+                <div class="upload-card">
+                    <h2>📂 Upload Your Chat File</h2>
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="fileInput" class="file-label">
+                                <span class="file-icon">📄</span>
+                                <span>Choose a chat file (TXT or LOG)</span>
+                                <input type="file" id="fileInput" name="file" accept=".txt,.log" required>
+                            </label>
+                            <p class="file-help">Supported formats: WhatsApp-like chat logs</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="topWords">Number of Top Words to Display:</label>
+                            <input type="number" id="topWords" name="top_words" min="5" max="50" value="10">
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            🚀 Analyze Chat
+                        </button>
+                    </form>
+
+                    <details class="format-info">
+                        <summary>📋 Expected File Format</summary>
+                        <div class="format-content">
+                            <p>Your chat file should follow this format:</p>
+                            <pre id="sampleFormat">[DD/MM/YY, HH:MM:SS] User: Message text</pre>
+                            <p>Example:</p>
+                            <pre id="sampleExample"></pre>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2>📊 Analysis Results</h2>
+                    <button class="btn-secondary" onclick="resetAnalysis()">↻ Analyze Another File</button>
+                </div>
+
+                <!-- Summary Statistics -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">💬</div>
+                        <div class="stat-content">
+                            <p class="stat-label">Total Messages</p>
+                            <p class="stat-value" id="totalMessages">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <p class="stat-label">Active Users</p>
+                            <p class="stat-value" id="activeUsers">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📏</div>
+                        <div class="stat-content">
+                            <p class="stat-label">Avg Message Length</p>
+                            <p class="stat-value" id="avgLength">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3>📊 Messages per User</h3>
+                        <canvas id="messagesChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>🔤 Top Words Frequency</h3>
+                        <canvas id="wordsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Detailed Statistics Table -->
+                <div class="table-section">
+                    <h3>📈 Messages per User (Detailed)</h3>
+                    <table class="results-table" id="messagesTable">
+                        <thead>
+                            <tr>
+                                <th>👤 User</th>
+                                <th>💬 Count</th>
+                                <th>📊 Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messagesTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Word Frequency Table -->
+                <div class="table-section">
+                    <h3>🔤 Word Frequency (Detailed)</h3>
+                    <table class="results-table" id="wordsTable">
+                        <thead>
+                            <tr>
+                                <th>Word</th>
+                                <th>Count</th>
+                                <th>📊 Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody id="wordsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Full Report -->
+                <div class="report-section">
+                    <h3>📄 Full Report</h3>
+                    <pre id="fullReport" class="report-content"></pre>
+                    <button class="btn-secondary" onclick="downloadReport()">⬇ Download Report</button>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section class="error-section" id="errorSection" style="display: none;">
+                <div class="error-card">
+                    <p class="error-message" id="errorMessage"></p>
+                    <button class="btn-secondary" onclick="resetAnalysis()">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Loading Section -->
+            <section class="loading-section" id="loadingSection" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing your chat file...</p>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with ❤️ for chat enthusiasts | Chat History Analyzer</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

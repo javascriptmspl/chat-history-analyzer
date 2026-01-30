@@ -1,0 +1,33 @@
+
+Chat Analysis Report
+====================
+
+Total Messages: 11
+Average Message Length: 30.82 characters
+
+Messages per User:
+- Alice: 5
+- Bob: 3
+- Charlie: 3
+
+Top Words:
+- how: 2
+- python: 2
+- projects: 2
+- data: 2
+- hey: 1
+- everyone: 1
+- going: 1
+- alice: 1
+- doing: 1
+- well: 1
+- thanks: 1
+- about: 1
+- pretty: 1
+- good: 1
+- working: 1
+- some: 1
+- sounds: 1
+- interesting: 1
+- what: 1
+- kind: 1
